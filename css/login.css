@@ -1,0 +1,26 @@
+@media only screen and (min-width: 600px){
+	body{
+	padding-top: 10%;
+}
+}
+.form-login{
+	max-width: 30rem;
+	padding: 1.5rem;
+	border-radius: 2rem;
+	background-color: #e9e9e9;
+	margin: 0 auto;
+}
+#client_pass-error{
+	margin: 0;
+}
+body{
+	font-family: helvetica;
+	background: rgb(155,57,40);
+	background: linear-gradient(90deg, rgba(155,57,40,1) 0%, rgba(40,92,155,1) 35%, rgba(40,92,155,1) 100%);
+} 
+@media only screen and (min-width: 600px){
+	.form-login{
+	display: block;
+	width: 100%;
+}
+}

@@ -1,0 +1,205 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	font-size: 16px;
+	height: 100%
+	max-width:100%;
+}
+body{
+	font-family: helvetica;
+	position: relative;
+	background:  #305496;
+	max-width:100%;
+	height: 100%
+}
+/* NAVBAR Style*/
+nav a{
+	color: black!important;
+	font-size: 0.8rem;
+	font-weight: bold;
+	margin-bottom: -0.8rem!important;
+}
+li {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+li:after {
+  content: "";
+  position: absolute;
+  left:0;
+  top: 100%;
+  width: 0;
+  height: 2px;
+  background-color: black;
+  transition: width .4s ease-in-out;
+}
+li:hover:after {
+  width: 100%;
+}
+li.active:after{
+	width: 100%;
+	background-color: blue;
+}
+
+.card{
+	min-width: 100%;
+	font-family: helvetica;
+	background: #305496;
+}
+.container-fluid,.card-body{
+	padding: 0!important;
+	margin: 0!important;
+}
+label{
+	display: block!important;
+	clear: both!important;
+}
+label.error{
+	color: red;
+}
+
+.icon_div{
+	position: relative;
+}
+.icon_span{
+	position: absolute;
+	left:10px;
+}
+button .icon_span{
+	position: absolute;
+	left:1.2rem;
+}
+.card .card-body table tbody a:hover{
+	text-decoration: none;
+}
+
+/** Table style**/ 
+.table-responsive table {
+	max-width: 110rem;
+	float: left;
+	font-size: 0.8rem;
+	line-height: 0.8rem;
+	color: black!important;
+	background-color: white;
+}
+.table-responsive table tbody tr td {
+	vertical-align: middle!important;
+	padding: 0.1rem;
+}
+
+
+/** Table style end **/
+
+/** Checkbox div **/ 
+.radio_div{
+	display: inline-block;
+	cursor: pointer;
+	-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+}
+.radio_div div{
+	display: inline-block;
+	background-color: #D7D7D7;
+	cursor: pointer;
+	color: black;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	transition: 0.5s background-color;
+}
+.radio_div input{
+	opacity: 0;
+	float: right;
+}
+.radio_div input:checked ~ div {
+  background-color: #24BC62;
+  color: white;
+}
+.radio_div i {
+  display: none;
+  position: absolute;
+  left:1.5rem;
+}
+.radio_div input:checked ~ i {
+  display: inline-block;
+}
+
+/** Pagination style **/
+ .card-body .d-flex{
+ 	margin-top: 1rem;
+ }
+.pagination li a{
+ 	transition: 1s background-color, color;
+ 	font-size: 0.8rem;
+ 	font-weight: bold;
+ 	padding: 0.2rem;
+ 	color: #1A73E8!important;
+ } 
+ .pagination li a:hover{
+ 	color:white!important;
+ 	background-color:rgba(40,92,155,1)!important;
+ } 
+
+@media screen and (min-width: 990px) {
+ .card-body .d-flex{
+ 	position: absolute;;
+ 	top: 40rem;
+ 	left: 50%;
+ 	margin-left: -10rem;
+ } }
+
+ /** Search by <th> style **/
+th.selectable_th{
+	cursor: pointer;
+	user-select: none;
+}
+td.dataTables_empty{
+	font-weight: bold;
+	color: red;
+}
+@media screen and (max-width: 995px) {
+ nav li {
+ 	text-transform: uppercase;
+ 	margin:0 auto;
+ 	display: block;
+ } 
+ nav a.logout{
+ 	text-align: center;
+ 	text-transform: uppercase;
+ 	 }
+li.active:after{
+	width: 100%;
+	background-color: blue;
+}
+table tr{
+	font-size:0.6rem;
+	font-weight: bold;
+}
+}
+
+/* Footer style */
+.container-fluid{
+	margin-bottom: 5 rem
+}
+footer{
+	margin-top: 2rem!important;
+	background-color: white;
+	position: relative;
+	bottom: 0;
+	height: 3rem;
+	
+}
+@media screen and (max-width: 995px) {
+	body{
+	font-size:0.7rem;
+	font-weight: bold;
+	}
+	footer .row{
+		padding-top: 0.8rem!important;
+	}
+	}

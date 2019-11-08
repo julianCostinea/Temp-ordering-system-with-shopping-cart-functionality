@@ -1,0 +1,133 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	height: 100%;
+}
+body{
+	background-color: #F7F7F7;
+	font-size: 16px;
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+	position: relative;
+	min-height: 100%;
+	padding-bottom: 15rem;
+}
+div.pageHeader{
+	background-color: white;
+}
+div.card{
+	height: 100%;
+}
+div.card-body{
+	height: 100%;
+}
+.icon_div a{
+	min-width: 10rem!important;
+	
+}
+.icon_div a:before{
+  font-family: "Font Awesome 5 Pro";
+  font-weight: 900;
+  content: "\f2f5";
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.icon_div a:hover::before{
+  opacity: 1;
+}
+
+.orderContainer{
+	display: flex;
+	justify-content: center;
+	margin-top: 7rem;
+	font-size: 2rem;
+  	font-weight: 1800;
+}
+.orderContainer .orderCard{
+	flex-basis: 35%;
+}
+.orderCard i{
+	font-size: 2rem;
+}
+.orderContainer a{
+	text-decoration: none;
+}
+.orderContainer a div{
+	transition: box-shadow 0.4s ease-in-out;
+}
+.orderContainer a div.card.text-dark:hover{
+	text-decoration: none;
+	-webkit-box-shadow: 6px 4px 9px 1px teal;
+	-moz-box-shadow: 6px 4px 9px 1px teal;
+	box-shadow: 1px 1px 9px 1px teal;
+	color: white!important;
+}
+
+
+.call-outs-container {
+  max-width: 1400px;
+  margin: 5rem auto 0 auto;
+  font-size: 2rem;
+  font-weight: 1800;
+}
+a div.card.text-dark{
+	border-radius: 50px;
+	transition: box-shadow 0.4s ease-in-out;
+	transition: color 0.45s ;
+}
+a div.card.text-dark.bg-primary:hover{
+	-webkit-box-shadow: 6px 4px 9px 1px rgba(53,81,191,1);
+	-moz-box-shadow: 6px 4px 9px 1px rgba(53,81,191,1);
+	box-shadow: 1px 1px 9px 1px rgba(53,81,191,1);
+	color: white!important;
+}
+a div.card.text-dark.bg-success:hover{
+	-webkit-box-shadow: 6px 4px 9px 1px rgba(36,171,43,1);
+	-moz-box-shadow: 6px 4px 9px 1px rgba(36,171,43,1);
+	box-shadow: 1px 1px 9px 1px rgba(36,171,43,1);
+	color: white!important;
+}
+a div.card.text-dark.bg-danger:hover{
+	-webkit-box-shadow: 6px 4px 9px 1px red;
+	-moz-box-shadow: 6px 4px 9px 1px red;
+	box-shadow: 1px 1px 9px 1px red;
+	color: white!important;
+}
+
+.call-out {
+  padding: 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  flex: 1;
+  flex-basis: 30%;
+
+}
+.call-out:hover {
+  text-decoration: none;
+}
+.call-out i{
+  font-size: 2rem;
+}
+
+@media (min-width: 700px) {
+  .call-outs-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+footer{
+	background-color: #e5e5e5 ;
+	height: 3rem;
+	position: absolute;
+	padding-left: 3rem;
+	padding-top: 0.5rem;
+	bottom: 0;
+	width: 100%;
+	clear: both;
+	display: flex;
+}
+footer div{
+	color: gray;
+}

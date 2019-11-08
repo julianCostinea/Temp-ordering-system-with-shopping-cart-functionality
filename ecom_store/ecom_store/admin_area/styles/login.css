@@ -1,0 +1,10 @@
+body{
+	padding-top: 10%;
+}
+.form-login{
+	max-width: 30rem;
+	padding: 3rem;
+	border-radius: 2rem;
+	background-color: #e9e9e9;
+	margin: 0 auto;
+}
