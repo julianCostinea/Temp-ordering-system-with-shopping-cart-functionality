@@ -4,8 +4,17 @@
 	if (!isset($_SESSION['admin_email'])) {
     echo "<script>window.open('admin_login.php','_self')</script>";
   }
-  include_once 'includes/functions.php';	
 ?>
+<?php if (isset($_GET['amount'])) {
+				$amount=$_GET['amount'];
+				if ($amount=='Alle') {
+						$amount=2000;
+					}	
+			}
+			else{
+				$amount=2;
+			}	
+	?>
 <!DOCTYPE html>
 <html>
 
@@ -17,7 +26,8 @@
 
 <body>
 	<?php include_once 'header_gowork.php' ?>
-	<div class="container-fluid">
+	<div class="row"><!-- 2 row Starts -->
+		<div class="col-lg-12"><!-- col-lg-12 Starts -->
 			<div class="card text-white">
 				<div class="card-header ">
 					<div class="float-left">
@@ -39,12 +49,36 @@
 										?>
 								</select>
 								<div class="col-sm-12 icon_div col-md-6">
-									<button class="btn btn-sm btn-light icon_link" type="submit" name="insert_bestilling_gowork" style="min-width: 10rem;"><span class="icon_span" style="display: none;"><i class="fas fa-plus-circle"></i> </span> Insert bestilling </button>
+									<button class="btn btn-light icon_link" type="submit" name="insert_bestilling_gowork" style="min-width: 10rem;"><span class="icon_span" style="display: none;"><i class="fas fa-plus-circle"></i> </span> Insert bestilling </button>
 								</div>
 							</div>
 						</form>
+						<div class="select_tag">
+							Show
+							<select name="amount_per_page" id="amount_per_page">
+								<option <?php if ($amount==2) {
+									echo 'selected';
+								}  ?> >2</option>
+								<option <?php if ($amount==50) {
+									echo 'selected';
+								}  ?>>50</option>
+								<option <?php if ($amount==100) {
+									echo 'selected';
+								}  ?>>100</option>
+								<option <?php if ($amount==2000) {
+									echo 'selected';
+								}  ?>>Alle</option>
+							</select>
+							results per page.
+						</div>
 					</div>
 					<div class="text-center float-right  mt-1">
+						<div class="icon_div" style="display: inline-block;">
+							<a href="admin_logout.php" class="btn btn-secondary icon_link" style="min-width: 7rem;"><span class="icon_span" style="display: none;"><i class="fas fa-sign-out-alt"></i> </span> Log out </a>
+						</div>
+						<div class="icon_div" style="display: inline-block;">
+							<a href="view_completed_bestillinger_gowork.php" class="btn btn-warning text-right icon_link" style="min-width: 13.4rem;"> <span class="icon_span" style="display: none;"><i class="fas fa-list"></i></span> Se Fuldførte Bestillinger </a>
+						</div>
 						<form method="get" class="mt-2 search_form">
 							<div class="input-group">
 								<input type="text" class="form-control" id="search" name="search" placeholder="Search...	">
@@ -82,9 +116,16 @@
 								</thead>
 								<tbody>
 									<?php
+
+									$page=1;
+						            if (isset($_GET['page'])) {
+						            	$page=$_GET['page'];
+						            }					
+						            $start_from=($page-1) * $amount;
+
 									if (!empty($_GET['search'])) {
 										$search_field=$_GET['search'];
-										$stmt=$con->prepare('SELECT * FROM orders WHERE order_address LIKE :order_address OR order_school LIKE :order_school OR order_meeting LIKE :order_meeting OR order_uge_nummer LIKE :order_uge_nummer OR order_fag LIKE :order_fag OR order_fakultet LIKE :order_fakultet OR order_kontakt LIKE :order_kontakt OR order_form LIKE :order_form OR order_lokale LIKE :order_lokale');
+										$stmt=$con->prepare('SELECT * FROM orders WHERE order_address LIKE :order_address OR order_school LIKE :order_school OR order_meeting LIKE :order_meeting OR order_uge_nummer LIKE :order_uge_nummer OR order_fag LIKE :order_fag OR order_fakultet LIKE :order_fakultet OR order_kontakt LIKE :order_kontakt OR order_form LIKE :order_form OR order_lokale LIKE :order_lokale LIMIT :start_from, :amount');
 										$stmt->bindValue(':order_address', '%'.$search_field.'%');
 										$stmt->bindValue(':order_school', '%'.$search_field.'%');
 										$stmt->bindValue(':order_uge_nummer', '%'.$search_field.'%');
@@ -94,9 +135,13 @@
 										$stmt->bindValue(':order_kontakt', '%'.$search_field.'%');
 										$stmt->bindValue(':order_form', '%'.$search_field.'%');
 										$stmt->bindValue(':order_lokale', '%'.$search_field.'%');
+										$stmt->bindParam(':start_from',$start_from, PDO::PARAM_INT);
+										$stmt->bindParam(':amount', $amount, PDO::PARAM_INT);
 									}
 									else{		
-									$stmt = $con->prepare('SELECT * FROM orders ORDER BY order_date');
+									$stmt = $con->prepare('SELECT * FROM orders ORDER BY order_date LIMIT ?, ?');
+									$stmt->bindParam(1, $start_from, PDO::PARAM_INT);
+									$stmt->bindParam(2, $amount, PDO::PARAM_INT);
 									}
 									
 									$stmt->execute();
@@ -112,15 +157,16 @@
 									$order_address = htmlspecialchars($row['order_address']);
 									$order_meeting = htmlspecialchars($row['order_meeting']);
 									$order_lokale = htmlspecialchars($row['order_lokale']);
-									$order_meeting=$order_meeting . ' ' . $order_lokale;
+									$school_code = $row['school_code'];
 									$order_start_time = $row['order_start_time'];
 									$order_stop_time = $row['order_stop_time'];
 									$order_shifts = $row['order_shifts'];
 									$order_fag = htmlspecialchars($row['order_fag']);
 									$order_fakultet = htmlspecialchars($row['order_fakultet']);
 									$order_kontakt = htmlspecialchars($row['order_kontakt']);
+									$short_kontakt=substr($order_kontakt, 0,20);
+									$long_kontakt=substr($order_kontakt, 20);
 									$order_form = $row['order_form'];
-									$school_code = $row['school_code'];
 
 									?>
 									<tr>
@@ -141,17 +187,17 @@
 											?>
 										</td>
 										<td style="min-width: 6.5rem;"><?php echo date('j-m-Y', strtotime($order_send_date)); ?></td>
-										<td><?php shortenText($order_address); ?></td>
-										<td><?php shortenText($order_meeting); ?></td>
-										<td> <?php echo $order_start_time;?> </td>
-										<td> <?php echo $order_stop_time;?>  </td>
-										<td> <?php echo $order_shifts;?> </td>
-										<td><?php shortenText($order_fag); ?></td>
-										<td> <?php echo $order_fakultet;?> </td>
-										<td><?php shortenText($order_kontakt); ?></td>
-										<td><?php echo $order_form;?></td>
+										<td><?php echo $order_address; ?></td>
+										<td style="min-width: 6.5rem;"> <?php echo $order_meeting . ' ' . $order_lokale; ?> </td>
+										<td> <?php echo $order_start_time; ?> </td>
+										<td> <?php echo $order_stop_time; ?> </td>
+										<td> <?php echo $order_shifts; ?> </td>
+										<td style="min-width: 6.5rem;"> <?php echo $order_fag; ?> </td>
+										<td> <?php echo $order_fakultet; ?> </td>
+										<td> <span class='kontakt'><span class='short_text'><?php echo $short_kontakt;?> </span><span class='hidden'> <?php echo $long_kontakt;?></span></span></td>
+										<td> <?php echo $order_form; ?> </td>
 										<td>
-											<a style="font-weight: bold; padding: 3px; margin-bottom: 3px;" class="text-success" href="edit_bestilling.php?edit_bestilling=<?php echo $order_id; ?>"><i class="fas fa-edit"></i>
+											<a style="font-weight: bold; padding: 3px; margin-bottom: 3px;" class="text-success" href="edit_bestilling.php?edit_bestilling=<?php echo $order_id; ?>">EDIT <i class="fas fa-edit"></i>
 											</a>
 										</td>
 									</tr>
@@ -175,7 +221,57 @@
 					<div class="d-flex mr-5">
 				        <ul class="pagination mt-4">
 
-				          <?php    	
+				          <?php 
+				            if (empty($_GET['search'])) {
+				            $stmt = $con->prepare('SELECT * FROM orders ORDER BY order_date');
+							}
+							else{
+								$stmt=$con->prepare('SELECT * FROM orders WHERE order_address LIKE :order_address OR order_school LIKE :order_school OR order_meeting LIKE :order_meeting OR order_uge_nummer LIKE :order_uge_nummer OR order_fag LIKE :order_fag OR order_fakultet LIKE :order_fakultet OR order_kontakt LIKE :order_kontakt OR order_form LIKE :order_form OR order_lokale LIKE :order_lokale');
+								$stmt->bindValue(':order_address', '%'.$search_field.'%');
+								$stmt->bindValue(':order_school', '%'.$search_field.'%');
+								$stmt->bindValue(':order_uge_nummer', '%'.$search_field.'%');
+								$stmt->bindValue(':order_meeting', '%'.$search_field.'%');
+								$stmt->bindValue(':order_fag', '%'.$search_field.'%');
+								$stmt->bindValue(':order_fakultet', '%'.$search_field.'%');
+								$stmt->bindValue(':order_kontakt', '%'.$search_field.'%');
+								$stmt->bindValue(':order_form', '%'.$search_field.'%');
+								$stmt->bindValue(':order_lokale', '%'.$search_field.'%');
+							}
+						    $stmt->execute();
+						    $total_records=$stmt->rowCount();
+				            $total_pages=ceil($total_records/$amount);
+
+				            	
+				            $page_link="<li class='page-item'><a style='color:black; background-color:#f7f7f7;' class='page-link' href='view_bestillinger_gowork.php?page=1&amount=$amount";
+				            if (!empty($search_field)) {
+				            	$page_link.="&search=$search_field";
+				            }
+				            $page_link.="'>";
+
+				              echo $page_link. 'First Page'. "</a></li>";
+				              for($i=max(1, $page-2);$i<=min($page+2,$total_pages);$i++){
+				              	if ($i==$page) {
+				              		echo "
+				                <li class='page-item'><a style='color:black; background-color:#f7f7f7;' class='page-link active'>". $i . "</a></li>
+				                ";
+				              	}else{
+				              	$page_link="<li class='page-item'><a style='color:black; background-color:#f7f7f7;' class='page-link' href='view_bestillinger_gowork.php?page=$i&amount=$amount";
+				              	if (!empty($search_field)) {
+				            	$page_link.="&search=$search_field";
+					            }
+					            $page_link.="'>";
+				                echo $page_link . $i . "</a></li>
+				                ";
+				            	}  
+				            };
+					            $page_link="<li class='page-item'><a style='color:black; background-color:#f7f7f7;' class='page-link' href='view_bestillinger_gowork.php?page=$total_pages&amount=$amount";
+					            if (!empty($search_field)) {
+					            	$page_link.="&search=$search_field";
+					            }
+					            $page_link.="'>";
+				              echo $page_link . 'Last Page' . "</a></li>
+				              ";
+				          	
 				          $stmt=null;
 						  $con=null;
 				           ?>
@@ -183,8 +279,9 @@
 				    </div>
 				</div><!-- panel-body Ends -->
 			</div><!-- panel panel-default Ends -->
-		</div><!-- container-fluid Ends -->
-<?php include_once 'footer.php'; ?>
+		</div><!-- col-lg-12 Ends -->
+	</div><!-- 2 row Ends -->
+
 	<?php include_once 'includes/scripts_gowork.php' ?>
 </body>
 </html>

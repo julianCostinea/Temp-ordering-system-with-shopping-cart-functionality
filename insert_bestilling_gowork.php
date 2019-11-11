@@ -174,8 +174,8 @@
 							    <div class="col-md-7 col-lg-3">
 								      <select required class="form-control" id="order_form" name="order_form">
 								      	<option value="">Select a form </option>
-								      	<option value="Skriftlig">Skriftlig</option>
-								      	<option value="Mundtlig">Mundtlig</option>
+								      	<option value="SKR">Skriftlig</option>
+								      	<option value="MDT">Mundtlig</option>
 								      </select>
 							    </div>
 						  </div>

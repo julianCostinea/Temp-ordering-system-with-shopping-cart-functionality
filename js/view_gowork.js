@@ -53,7 +53,7 @@ $('table').DataTable({
     }
 });
 
-  $('body').on('click', '.kontakt', function(){
+  $('body').on('click', '.showMore', function(){
     $(this).toggleClass('minus');
     $(this).find('.hidden').toggle();
 });

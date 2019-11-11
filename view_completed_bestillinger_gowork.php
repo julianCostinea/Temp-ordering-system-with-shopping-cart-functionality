@@ -17,8 +17,7 @@
 
 <body>
 	<?php include_once 'header_gowork.php' ?>
-	<div class="row"><!-- 2 row Starts -->
-		<div class="col-lg-12"><!-- col-lg-12 Starts -->
+	<div class="container-fluid">
 			<div class="card text-white">
 				<div class="card-header">
 					<div class="float-left">
@@ -40,18 +39,12 @@
 										?>
 								</select>
 								<div class="col-sm-12 icon_div col-md-6">
-									<button class="btn btn-light icon_link" type="submit" name="insert_bestilling_gowork" style="min-width: 10rem;"><span class="icon_span" style="display: none;"><i class="fas fa-plus-circle"></i> </span> Insert bestilling </button>
+									<button class="btn btn-sm btn-light icon_link" type="submit" name="insert_bestilling_gowork" style="min-width: 10rem;"><span class="icon_span" style="display: none;"><i class="fas fa-plus-circle"></i> </span> Insert bestilling </button>
 								</div>
 							</div>
 						</form>
 					</div>
 					<div class="text-center float-right  mt-1">
-						<div class="icon_div" style="display: inline-block;">
-							<a href="admin_logout.php" class="btn btn-secondary icon_link" style="min-width: 7rem;"><span class="icon_span" style="display: none;"><i class="fas fa-sign-out-alt"></i> </span> Log out </a>
-						</div>
-						<div class="icon_div" style="display: inline-block;">
-							<a href="view_bestillinger_gowork.php" class="btn btn-success text-right icon_link" style="min-width: 12.4rem;"> <span class="icon_span" style="display: none;"><i class="fas fa-list"></i></span> Se Aktive Bestillinger </a>
-						</div>
 						<form method="get" class="mt-2 search_form">
 							<div class="input-group">
 								<input type="text" class="form-control" id="search" name="search" placeholder="Search...	">
@@ -170,9 +163,8 @@
 					</form>
 				</div><!-- panel-body Ends -->
 			</div><!-- panel panel-default Ends -->
-		</div><!-- col-lg-12 Ends -->
-	</div><!-- 2 row Ends -->
-
+	</div><!-- container fluid ends -->
+<?php include_once 'footer.php'; ?>
 	<?php include_once 'includes/scripts.php' ?>
 </body>
 </html>

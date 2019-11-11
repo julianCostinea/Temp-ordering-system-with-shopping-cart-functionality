@@ -24,28 +24,16 @@
 	</head>
 
 <body>
-	<div class="row"><!-- 2 row Starts -->
-		<div class="col-lg-12"><!-- col-lg-12 Starts -->
+<?php include_once 'header.php' ?>
+		<div class="container-fluid">
 			<div class="card text-white">
 				<div class="card-header">
 					<div class="float-left">
 						<h3 class="card-title">
 						<i class="fas fa-calendar-check"></i> Fuldførte Ordrer 
 						</h3>
-						<div class="icon_div" style="display: inline-block;">
-							<a href="view_aktive_bestillinger.php" class="btn btn-success icon_link" style="min-width: 12rem;"><span class="icon_span" style="display: none;"><i class="fas fa-address-card"></i> </span> Aktive bestillinger </a>
-						</div>
 					</div>
 					<div class="text-center float-right  mt-1">
-						<div class="icon_div" style="display: inline-block;">
-							<a href="logout.php" class="btn btn-secondary icon_link" style="min-width: 7rem;"><span class="icon_span" style="display: none;"><i class="fas fa-sign-out-alt"></i> </span> Log out </a>
-						</div>
-						<div class="icon_div" style="display: inline-block;">
-							<a href="view_kladder.php" class="btn btn-warning text-right icon_link" style="min-width: 7.4rem;"> <span class="icon_span" style="display: none;"><i class="fas fa-list"></i></span> Se Klader </a>
-						</div>
-						<div class="icon_div" style="display: inline-block;">
-							<a href="insert_bestilling.php" class="btn btn-dark text-right icon_link" style="min-width: 8rem;"> <span class="icon_span" style="display: none;"><i class="fas fa-plus-circle"></i></span> Opret ordre  </a>
-						</div>
 						<form method="get" class="mt-2 search_form">
 							<div class="input-group">
 								<input type="text" class="form-control" id="search" name="search" placeholder="Search...	">
@@ -148,9 +136,8 @@
 					</div>
 				</div><!-- panel-body Ends -->
 			</div><!-- panel panel-default Ends -->
-		</div><!-- col-lg-12 Ends -->
-	</div><!-- 2 row Ends -->
-
+		</div>
+	 <?php include_once 'footer.php'; ?>
 	<?php include_once 'includes/scripts.php' ?>
 </body>
 </html>

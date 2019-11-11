@@ -8,7 +8,7 @@ html{
 	max-width:100%;
 }
 body{
-	font-family: "Times New Roman";
+	font-family: Verdana, Geneva, sans-serif;
 	position: relative;
 	background:  #305496;
 	max-width:100%;
@@ -17,7 +17,7 @@ body{
 /* NAVBAR Style*/
 nav a{
 	color: black!important;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	font-weight: bold;
 	margin-bottom: -0.8rem!important;
 }
@@ -87,6 +87,10 @@ label{
 }
 label.error{
 	color: red;
+}
+::placeholder, select { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: gray!important;
+  opacity: 1; /* Firefox */
 }
 
 .icon_div{
