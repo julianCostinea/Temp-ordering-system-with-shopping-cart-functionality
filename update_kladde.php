@@ -31,9 +31,11 @@
       echo "<script>window.open('view_kladder.php','_self')</script>";
     }
   }
-
-  elseif (isset($_POST['book_kladde'])) {
+  if (isset($_POST['book_kladde'])) {
       if (!empty($_POST['selected_orders'])) {
+        $order_mail_dates=array();
+        $order_mail_uge_nummer=array();
+        $order_mail_shifts=array();
         foreach($_POST['selected_orders'] as $klade_id){
               $statement = $con->prepare('SELECT * FROM klader WHERE klade_id = :klade_id');
               $statement->bindParam(':klade_id', $klade_id);
@@ -60,6 +62,10 @@
           $order_form = $row['order_form'];
           $order_school = $row['order_school'];
           $school_code = $row['school_code'];
+
+          $order_mail_dates[]= $order_mail_date;
+          $order_mail_uge_nummer[]= $order_uge_nummer;
+          $order_mail_shifts[]= $order_shifts;
 
           //Check if date is more than 30 days ahead
           $futureDate= time()+(28*24*60*60);
@@ -94,14 +100,14 @@
       $count=$statement->rowCount();  
       if ($count>0) {
         foreach($_POST['selected_orders'] as $order_id){
-        $statement = $con->prepare('DELETE FROM klader WHERE klade_id = :klade_id');
-        $statement->bindParam(':klade_id', $klade_id);
+        $statement = $con->prepare('DELETE FROM klader WHERE klade_id = :order_id');
+        $statement->bindParam(':order_id', $order_id);
         $statement->execute();
         }
         $countDelete=$statement->rowCount();
       }
       if ($countDelete>0) {
-        sendMail($order_school,$order_mail_date, $order_uge_nummer, $order_shifts);
+        sendMail($order_school,$order_mail_dates, $order_mail_uge_nummer, $order_mail_shifts);
         echo "<script>alert('Bestilling Sendt Til Booking.')</script>";
         echo "<script>window.open('view_aktive_bestillinger.php','_self')</script>";
 
@@ -111,9 +117,7 @@
         echo "<script>window.open('view_kladder.php','_self')</script>";
       }
   }
-        else{
         echo "<script>alert('Vælg en kladde!')</script>";
         echo "<script>window.open('view_kladder.php','_self')</script>";
-      }
-}
+    }
  ?>
