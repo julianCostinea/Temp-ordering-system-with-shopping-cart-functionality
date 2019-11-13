@@ -11,7 +11,8 @@
 	 	$stmt->bindParam(':account_email', $account_email);
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		$account_code = $row['account_code'];								
+		$account_code = $row['account_code'];	
+	include_once 'includes/functions.php';								
   ?>
 
 <!DOCTYPE html>
@@ -49,18 +50,18 @@
 						<table class="table table-bordered table-striped text-white text-center" >
 							<thead>
 								<tr>
-									<th>Bestilling ID:</th>
-									<th>Eksamen Ugenummer:</th>
-									<th>Eksamen Dato:</th>
+									<th>ID:</th>
+									<th>Uge:</th>
+									<th>Dato:</th>
 									<th>Adresse:</th>
 									<th>Mødested:</th>
-									<th>Vagten Starter:</th>
-									<th>Vagten Stopper:</th>
-									<th>Antal Tilsyn:</th>
-									<th>Fag/Uddanelse:</th>
-									<th>Fakultet:</th>
-									<th>Kontaktperson:</th>
-									<th>Eksamen Form:</th>
+									<th>Vagt Starter:</th>
+									<th>Vagt Stopper:</th>
+									<th>Tilsyn:</th>
+									<th>Fag/Udd:</th>
+									<th>Fak:</th>
+									<th>Kontakt:</th>
+									<th>Form:</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -97,6 +98,7 @@
 								$order_address = htmlspecialchars($row['order_address']);
 								$order_meeting = htmlspecialchars($row['order_meeting']);
 								$order_lokale = htmlspecialchars($row['order_lokale']);
+								$order_meeting=$order_meeting . ' ' . $order_lokale;
 								$order_start_time = $row['order_start_time'];
 								$order_stop_time = $row['order_stop_time'];
 								$order_shifts = $row['order_shifts'];
@@ -109,15 +111,15 @@
 								<tr>
 									<td><?php echo $order_id; ?></td>
 									<td><?php echo $order_uge_nummer; ?></td>
-									<td style="min-width: 6.5rem;"><?php echo $order_date; ?></td>
-									<td style="min-width: 11.5rem;"><?php echo $order_address; ?></td>
-									<td> <?php echo $order_meeting . ' ' . $order_lokale; ?> </td>
+									<td><?php echo $order_date; ?></td>
+									<td><?php shortenText($order_address); ?></td>
+									<td><?php shortenText($order_meeting); ?> </td>
 									<td> <?php echo $order_start_time; ?> </td>
 									<td> <?php echo $order_stop_time; ?> </td>
 									<td> <?php echo $order_shifts; ?> </td>
-									<td> <?php echo $order_fag; ?> </td>
+									<td><?php shortenText($order_fag); ?></td>
 									<td> <?php echo $order_fakultet; ?> </td>
-									<td style="min-width: 17.5rem;"> <?php echo $order_kontakt; ?> </td>
+									<td><?php shortenText($order_kontakt); ?></td>
 									<td> <?php echo $order_form; ?> </td>
 								</tr>
 								<?php }   ?>

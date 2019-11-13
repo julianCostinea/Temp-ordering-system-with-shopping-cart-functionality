@@ -216,7 +216,8 @@
 						  <div class="form-group row">
 							    <label for="order_dokument" class="col-md-12 col-lg-2 col-form-label">Relevante dokumenter (Hvis relevant)</label>
 							    <div class="col-md-7 col-lg-3">
-							      <input type="file" class="form-control-file" name="order_dokument">
+							      <input type="file" class="form-control-file" name="order_dokument" accept="application/pdf">
+							      <span class="float-left" style="font-size: 0.6rem">Accepteret filtype: .pdf</span>
 							    </div>
 						  </div>
 						  <div class="text-left" style="font-size: 0.9rem;">
@@ -251,6 +252,9 @@
 </html>
 <?php 
 	if (isset($_POST['update'])) {
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$mime = finfo_file($finfo, $_FILES['order_dokument']['tmp_name']);
+
 		$order_unformatted_date=$_POST['order_date'];
 		$created_date=date_create($order_unformatted_date);
 		$order_date=date_format($created_date, 'Y-m-d');
@@ -269,6 +273,11 @@
 
 		$order_dokument=$_FILES['order_dokument']['name'];
 		$temp_order_document=$_FILES['order_dokument']['tmp_name'];
+		if(!empty($order_dokument)){
+			if ($mime!=='application/pdf') {
+			       die("<script>alert('Man må kun uploade .pdf filer!')</script>");   
+			}
+		}
 
 		if (empty($order_dokument)) {
 			$order_dokument=$order_original_dokument;
@@ -320,6 +329,9 @@
  	}
 
  	elseif (isset($_POST['send_order'])) {
+ 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$mime = finfo_file($finfo, $_FILES['order_dokument']['tmp_name']);
+
  		$order_unformatted_date=$_POST['order_date'];
 		$created_date=date_create($order_unformatted_date);
 		$order_date=date_format($created_date, 'Y-m-d');
@@ -338,6 +350,11 @@
 
 		$order_dokument=$_FILES['order_dokument']['name'];
 		$temp_order_document=$_FILES['order_dokument']['tmp_name'];
+		if(!empty($order_dokument)){
+			if ($mime!=='application/pdf') {
+			       die("<script>alert('Man må kun uploade .pdf filer!')</script>");   
+			}
+		}
 
 		if (empty($order_dokument)) {
 			$order_dokument=$order_original_dokument;

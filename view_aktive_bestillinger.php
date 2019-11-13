@@ -56,12 +56,13 @@
 									<th>Dato:</th>
 									<th>Adresse:</th>
 									<th>Mødested:</th>
-									<th style="word-wrap: break-word">Vagten Starter:</th>
-									<th style="word-wrap: break-word">Vagten Stopper:</th>
+									<th style="word-wrap: break-word">Vagt Starter:</th>
+									<th style="word-wrap: break-word">Vagt Stopper:</th>
 									<th>Tilsyn:</th>
 									<th>Fag/Udd:</th>
 									<th>Fak:</th>
 									<th>Kontakt:</th>
+									<th>Upload</th>
 									<th>Form:</th>
 								</tr>
 							</thead>
@@ -107,6 +108,7 @@
 									$order_fakultet = htmlspecialchars($row['order_fakultet']);
 									$order_kontakt = htmlspecialchars($row['order_kontakt']);
 									$order_form = $row['order_form'];
+									$order_dokument = $row['order_dokument'];
 
 									?>
 									<tr>
@@ -121,6 +123,10 @@
 										<td><?php shortenText($order_fag); ?></td>
 										<td> <?php echo $order_fakultet;?> </td>
 										<td><?php shortenText($order_kontakt); ?></td>
+										<td>
+											<?php if (!empty($order_dokument)) { ?><a target="_blank" href="pdfdokument.php?pdfdokument=<?php echo $order_dokument; ?>&iframe=1">PDF</a>
+										<?php } ?>
+										</td>
 										<td><?php echo $order_form;?></td>
 									</tr>
 									<?php }; ?>
@@ -135,14 +141,10 @@
 									}
 									?>
 					</div>
-					<div class="d-flex mr-5">
-				        <ul class="pagination">
 				          <?php 
 				          $stmt=null;
 						  $con=null;
 				           ?>
-				        </ul>
-				    </div>
 				</div><!-- panel-body Ends -->
 			</div><!-- panel panel-default Ends -->
 		</div>

@@ -11,7 +11,8 @@
 	 	$stmt->bindParam(':account_email', $account_email);
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		$account_code = $row['account_code'];								
+		$account_code = $row['account_code'];	
+	include_once 'includes/functions.php';								
   ?>
 
 <!DOCTYPE html>
@@ -62,6 +63,7 @@
 									<th>Fag/Udd:</th>
 									<th>Fak:</th>
 									<th>Kontakt:</th>
+									<th>Upload</th>
 									<th>Form:</th>
 									<th>Edit</th>
 								</tr>
@@ -100,12 +102,14 @@
 								$order_address = htmlspecialchars($row['order_address']);
 								$order_meeting = htmlspecialchars($row['order_meeting']);
 								$order_lokale=htmlspecialchars($row['order_lokale']);
+								$order_meeting=$order_meeting . ' ' . $order_lokale;
 								$order_start_time = $row['order_start_time'];
 								$order_stop_time = $row['order_stop_time'];
 								$order_shifts = $row['order_shifts'];
 								$order_fag = htmlspecialchars($row['order_fag']);
 								$order_fakultet = htmlspecialchars($row['order_fakultet']);
 								$order_kontakt = htmlspecialchars($row['order_kontakt']);
+								$order_dokument = $row['order_dokument'];
 								$order_form = $row['order_form'];
 
 								?>
@@ -116,14 +120,17 @@
 									<td><?php echo $klade_id; ?></td>
 									<td><?php echo $order_date; ?></td>
 									<td><?php echo $order_uge_nummer; ?></td>
-									<td ><?php echo $order_address; ?></td>
-									<td > <?php echo $order_meeting . ' ' . $order_lokale; ?> </td>
+									<td><?php shortenText($order_address); ?></td>
+									<td > <?php shortenText($order_meeting); ?> </td>
 									<td> <?php echo $order_start_time; ?> </td>
 									<td> <?php echo $order_stop_time; ?> </td>
 									<td> <?php echo $order_shifts; ?> </td>
-									<td> <?php echo $order_fag; ?> </td>
+									<td><?php shortenText($order_fag); ?></td>
 									<td> <?php echo $order_fakultet; ?> </td>
-									<td> <?php echo $order_kontakt; ?> </td>
+									<td><?php shortenText($order_kontakt); ?></td>
+									<td>
+											<?php if (!empty($order_dokument)) { ?><a target="_blank" href="pdfdokument.php?pdfdokument=<?php echo $order_dokument; ?>&iframe=1">PDF</a>
+										<?php } ?>
 									<td> <?php echo $order_form; ?> </td>
 									<td>
 											<a style="font-weight: bold; padding: 3px; margin-bottom: 3px;" class="text-success" href="edit_kladde.php?edit_kladde=<?php echo $klade_id; ?>"><i class="fas fa-edit"></i>
