@@ -42,7 +42,7 @@
 						</h3>
 					</div>
 				</div>
-				<div class="card-body text-center" style="font-size: 1.2rem">
+				<div class="card-body text-center">
 					<form autocomplete="off" action="test.php" method="post" enctype="multipart/form-data" class="ml-5">
 							<div class="form-group row">
 							    <label for="order_date" class="col-md-12 col-lg-2 col-form-label">Eksamensdato</label>

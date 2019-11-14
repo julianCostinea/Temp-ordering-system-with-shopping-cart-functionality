@@ -66,16 +66,5 @@ $('table').DataTable({
     }
     window.open(urlString,'_self');
 });
-  $('.search_form').on('submit', function(evt){
-    evt.preventDefault();
-    var search_field= $(this).find('input').val();
-    var amount= $('#amount_per_page').val();
-    var urlString='view_bestillinger_gowork.php?amount='+ amount;
-    if (search_field!='') {
-      urlString+='&search='+search_field;
-    }
-    window.open(urlString,'_self')
-});
-
   
 });

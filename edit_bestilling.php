@@ -45,6 +45,8 @@
 	</head>
 
 <body>
+<?php include_once 'header_gowork.php' ?>
+<div class="container" style="min-width: 90%">
 	<div class="row"><!-- 2 row Starts -->
 		<div class="col-md-12"><!-- col-lg-12 Starts -->
 			<div class="card text-white">
@@ -55,28 +57,19 @@
 							</span> &nbsp;&nbsp; Ordre ID:  <?php echo $edit_id;?> 
 						</h3>
 					</div>
-					<div class="text-center float-right icon_div">
-						<a href="admin_logout.php" class="btn btn-secondary icon_link" style="min-width: 7rem;"><span class="icon_span" style="display: none;"><i class="fas fa-sign-out-alt"></i> </span> Log out </a>
-					</div>
-					<div class="text-center float-right mr-3 icon_div">
-						<a href="view_bestillinger_gowork.php" class="btn btn-info text-right icon_link" style="min-width: 8.8rem;"> <span class="icon_span" style="display: none;"><i class="fas fa-list"></i> </span>Se alle ordrer  </a>
-					</div>
 				</div>
-				<div class="card-body text-center" style="font-size: 1.2rem">
-					<form autocomplete="off" method="post" >
-						<div class="row">
-							<div class="col-sm-12 col-md-6 text-left"><!-- first column !-->
-
-							<div class="form-group">
-							    <label for="order_date" class="">Eksamensdato</label>
-							    <div class="">
-							      <input type="text" required value="<?php echo $order_show_date; ?>" class="form-control" id="order_date" name="order_date" placeholder="Dato" style="max-width: 70%">
+				<div class="card-body text-center">
+					<form autocomplete="off" method="post" class="ml-5">
+							<div class="form-group row">
+							    <label for="order_date" class="col-md-12 col-lg-2 col-form-label">Eksamensdato</label>
+							    <div class="col-md-7 col-lg-3">
+							      <input type="text" required value="<?php echo $order_show_date; ?>" class="form-control" id="order_date" name="order_date" placeholder="Dato">
 							    </div>
 						  	</div>
-						  <div class="form-group">
-							    <label for="order_address" class="">Adresse</label>
-							    <div class="">
-							      <select class="form-control" name="order_address" required style="max-width: 70%">
+						  <div class="form-group row">
+							    <label for="order_address" class="col-md-12 col-lg-2 col-form-label">Adresse</label>
+							    <div class="col-md-7 col-lg-3">
+							      <select class="form-control" name="order_address" required>
 							      	<option selected value="<?php echo $order_address; ?>"><?php echo $order_address . " (selected)"; ?></option>
 							      	<?php
 							      	$stmt = $con->prepare("SELECT school_address FROM school_info WHERE school_code = :school_code AND school_address != :school_address AND school_address != ''");
@@ -91,10 +84,10 @@
 							      </select>
 							    </div>
 						  </div>
-						  <div class="form-group">
-							    <label for="order_meeting" class="">Mødested</label>
-							    <div class="">
-							      <select required class="form-control" id="order_meeting" name="order_meeting" style="max-width: 70%">
+						  <div class="form-group row">
+							    <label for="order_meeting" class="col-md-12 col-lg-2 col-form-label">Mødested</label>
+							    <div class="col-md-7 col-lg-3">
+							      <select required class="form-control" id="order_meeting" name="order_meeting">
 							      	<option selected value="<?php echo $order_meeting; ?>"><?php echo $order_meeting . " (selected)"; ?></option>
 							      	<?php
 							      	$stmt = $con->prepare("SELECT school_meeting FROM school_info WHERE school_code = :school_code AND school_meeting != :school_meeting AND school_meeting != ''");
@@ -109,28 +102,28 @@
 							      </select>
 							    </div>
 						  </div>
-						  <div class="form-group hidden" style="display: none;">
-							    <label for="order_lokale" class="">Eksamen Lokale</label>
-							    <div class="">
-							      <input value="<?php echo $order_lokale; ?>" type="text" class="form-control" id="order_lokale" name="order_lokale" placeholder="Lokale" style="max-width: 70%">
+						  <div class="form-group hidden row" style="display: none;">
+							    <label for="order_lokale" class="col-md-12 col-lg-2 col-form-label">Eksamen Lokale</label>
+							    <div class="col-md-7 col-lg-3">
+							      <input value="<?php echo $order_lokale; ?>" type="text" class="form-control" id="order_lokale" name="order_lokale" placeholder="Lokale">
 							    </div>
 						  </div>
-						<div class="form-group">
-							    <label for="order_shifts" class="">Antal eksamensvagter</label>
-							    <div class="">
-							      <input required type="number" value="<?php echo $order_shifts; ?>" class="form-control" min="1" id="order_shifts" name="order_shifts" placeholder="Antal" style="max-width: 70%">
+						<div class="form-group row">
+							    <label for="order_shifts" class="col-md-12 col-lg-2 col-form-label">Antal eksamensvagter</label>
+							    <div class="col-md-7 col-lg-3">
+							      <input required type="number" value="<?php echo $order_shifts; ?>" class="form-control" min="1" id="order_shifts" name="order_shifts" placeholder="Antal">
 							    </div>
 						  </div>
-						  <div class="form-group">
-							    <label for="order_fag" class="">Fag</label>
-							    <div class="">
-							      <input type="text" value="<?php echo $order_fag; ?>" style="max-width: 70%" class="form-control required" id="order_fag" name="order_fag" placeholder="Fag">
+						  <div class="form-group row">
+							    <label for="order_fag" class="col-md-12 col-lg-2 col-form-label">Fag</label>
+							    <div class="col-md-7 col-lg-3">
+							      <input type="text" value="<?php echo $order_fag; ?>" class="form-control required" id="order_fag" name="order_fag" placeholder="Fag">
 							    </div>
 						  </div>
-						  <div class="form-group">
-							    <label for="order_fakultet" class="">Fakultet (Hvis relevant)</label>
-							    <div class="">
-							      <select class="form-control" id="order_fakultet" name="order_fakultet" style="max-width: 70%">
+						  <div class="form-group row">
+							    <label for="order_fakultet" class="col-md-12 col-lg-2 col-form-label">Fakultet (Hvis relevant)</label>
+							    <div class="col-md-7 col-lg-3">
+							      <select class="form-control" id="order_fakultet" name="order_fakultet">
 							      	<option selected value="<?php echo $order_fakultet; ?>"><?php echo $order_fakultet . " (selected)"; ?></option>
 							      	<?php
 							      	$stmt = $con->prepare("SELECT school_fakultet FROM school_info WHERE school_code = :school_code AND school_fakultet != :school_fakultet AND school_fakultet !='' ORDER BY school_fakultet");
@@ -145,13 +138,10 @@
 							      </select>
 							    </div>
 						  </div>
-						</div>
-
-						<div class="col-sm-12 col-md-6"> <!-- second column !-->
-						  	<div class="form-group text-left">
-							    <label for="order_start_time" class="">Vagt Starttidspunkt</label>
-							    <div class="">
-							      <select required class="form-control" id="order_start_time" name="order_start_time" style="max-width: 70%">
+						  	<div class="form-group text-left row">
+							    <label for="order_start_time" class="col-md-12 col-lg-2 col-form-label">Vagt Starttidspunkt</label>
+							    <div class="col-md-7 col-lg-3">
+							      <select required class="form-control" id="order_start_time" name="order_start_time">
 							      	<option selected value="<?php echo $order_start_time; ?>"><?php echo $order_start_time . " (selected)"; ?></option>
 							      	<?php
 							      		for ($i=7; $i < 16; $i++) { 
@@ -164,10 +154,10 @@
 							      </select>
 							    </div>
 							</div>
-						  <div class="form-group text-left">
-							    <label for="order_stop_time" class="">Vagt Sluttidspunkt</label>
-							    <div class="">
-							      <select required class="form-control" id="order_stop_time" name="order_stop_time" style="max-width: 70%">
+						  <div class="form-group text-left row">
+							    <label for="order_stop_time" class="col-md-12 col-lg-2 col-form-label">Vagt Sluttidspunkt</label>
+							    <div class="col-md-7 col-lg-3">
+							      <select required class="form-control" id="order_stop_time" name="order_stop_time">
 							      	<option selected value="<?php echo $order_stop_time; ?>"><?php echo $order_stop_time . " (selected)"; ?></option>
 							      	<?php
 							      		for ($i=9; $i < 19; $i++) { 
@@ -180,10 +170,10 @@
 							      </select>
 							    </div>
 						  </div>
-						  <div class="form-group text-left">
-							    <label for="order_kontakt" class="">Kontaktperson</label>
-							    <div class="">
-							      <select required class="form-control" id="order_kontakt" name="order_kontakt" style="max-width: 70%">
+						  <div class="form-group text-left row">
+							    <label for="order_kontakt" class="col-md-12 col-lg-2 col-form-label">Kontaktperson</label>
+							    <div class="col-md-7 col-lg-3">
+							      <select required class="form-control" id="order_kontakt" name="order_kontakt">
 							      	<option selected value="<?php echo $order_kontakt; ?>"><?php echo $order_kontakt . " (selected)"; ?></option>
 							      	<?php
 							      	$stmt = $con->prepare("SELECT school_kontakt FROM school_info WHERE school_code = :school_code AND school_kontakt != :school_kontakt AND school_kontakt !=''");
@@ -198,31 +188,29 @@
 							      </select>
 							    </div>
 						  </div>
-						  <div class="form-group text-left">
-							    <label for="order_form" class="">Eksamensform</label>
-							    <div class="">
-							      <select required class="form-control" id="order_form" name="order_form" style="max-width: 70%">
+						  <div class="form-group text-left row">
+							    <label for="order_form" class="col-md-12 col-lg-2 col-form-label">Eksamensform</label>
+							    <div class="col-md-7 col-lg-3">
+							      <select required class="form-control" id="order_form" name="order_form">
 							      	<?php if ($order_form=="Skriftlig") {
 							      		echo '
-							      	<option selected value="Skriftlig">Skriftlig</option>
-							      	<option value="Mundtlig">Mundtlig</option>
+							      	<option selected value="SKR">Skriftlig</option>
+							      	<option value="MDT">Mundtlig</option>
 							      	';}
 							      		else{
 							      			echo '
-							      	<option value="Skriftlig">Skriftlig</option>
-							      	<option selected value="Mundtlig">Mundtlig</option>
+							      	<option value="SKR">Skriftlig</option>
+							      	<option selected value="MDT">Mundtlig</option>
 							      	';
 							      		}
 							      	 ?>
 							      </select>
 							    </div>
 						  </div>
-						</div>
-						
-					</div>
-					<div class="row">
-						<div class="col-sm-12 offset-md-3 col-md-7 mb-3 text-left">
-							 <button type="submit" class="form-control btn btn-light" id="update" name="update" value="" style="max-width: 85%">Opdater Bestilling <i class="fas fa-arrow-alt-circle-right"></i></button>
+					<div class="form-group row">
+						<label for="update" class="col-md-2 col-form-label"></label>
+						<div class="col-md-7 col-lg-3 text-left">
+							 <button type="submit" class="form-control btn btn-sm btn-light" id="update" name="update" value="">Opdater Bestilling <i class="fas fa-arrow-alt-circle-right"></i></button>
 						 </div>
 					</div>
 						  <?php $stmt=null; ?>
@@ -231,8 +219,8 @@
 			</div>
 		</div>
 	</div>
-
-
+</div>
+<?php include_once 'footer.php'; ?>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery-ui.min.js"></script>

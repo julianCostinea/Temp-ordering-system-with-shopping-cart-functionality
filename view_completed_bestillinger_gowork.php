@@ -3,7 +3,11 @@
 	include("db.php");
 	if (!isset($_SESSION['admin_email'])) {
     echo "<script>window.open('admin_login.php','_self')</script>";
+    exit();
   }
+  $sql="DELETE FROM completed_orders WHERE order_date < CURDATE()";
+  $statement = $con->prepare($sql);
+  $statement->execute();
 ?>
 
 <!DOCTYPE html>
