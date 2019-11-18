@@ -66,20 +66,20 @@
 							<thead>
 								<tr>
 									<th><label class="container_checkbox" for="all_orders"><input type="checkbox" id="all_orders" name="all_orders"><span class="checkmark"></span></label></th>
-									<th>Bestilling ID:</th>
-									<th>Eksamen Dato:</th>
-									<th>Eksamen Ugenummer:</th>
+									<th>ID:</th>
+									<th>Dato:</th>
+									<th>Uge:</th>
 									<th>Bestilt af:</th>
-									<th>Ordre sendt den:</th>
+									<th>Sendt den:</th>
 									<th>Adresse:</th>
 									<th>Mødested:</th>
-									<th>Vagten Starter:</th>
-									<th>Vagten Stopper:</th>
+									<th>Vagt Starter:</th>
+									<th>Vagt Stopper:</th>
 									<th>Tilsyn:</th>
-									<th>Fag/Uddanelse:</th>
-									<th>Fakultet:</th>
-									<th>Kontaktperson:</th>
-									<th>Eksamen form:</th>
+									<th>Fag/Udd:</th>
+									<th>Fak:</th>
+									<th>Kontakt:</th>
+									<th>Form:</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -112,6 +112,7 @@
 								$order_address = htmlspecialchars($row['order_address']);
 								$order_meeting = htmlspecialchars($row['order_meeting']);
 								$order_lokale = htmlspecialchars($row['order_lokale']);
+								$order_meeting=$order_meeting . ' ' . $order_lokale;
 								$school_code = $row['school_code'];
 								$order_start_time = $row['order_start_time'];
 								$order_stop_time = $row['order_stop_time'];
@@ -126,27 +127,27 @@
 										<input type="checkbox" name="selected_orders[]" class="selected_orders" value="<?php echo $order_id; ?>">
 									</td>
 									<td><?php echo $order_id; ?></td>
-									<td style="min-width: 6.5rem;"><?php echo $order_date; ?></td>
+									<td><?php echo $order_date; ?></td>
 									<td><?php echo $order_uge_nummer; ?></td>
-									<td style="min-width: 12.5rem;">
+									<td>
 										<?php				
 											$statement = $con->prepare('SELECT account_school FROM accounts WHERE account_code = :school_code');
 											$statement->bindParam(':school_code', $school_code);
 											$statement->execute();
 											$row = $statement->fetch(PDO::FETCH_ASSOC);
 											$school_name = $row['account_school'];
-											echo $school_name;
+											shortenText($school_name);
 										?>
 									</td>
-									<td style="min-width: 6.5rem;"><?php echo date('j-m-Y', strtotime($order_send_date)); ?></td>
-									<td style="min-width: 13.5rem;"><?php echo $order_address; ?></td>
-									<td style="min-width: 14.5rem;"> <?php echo $order_meeting . ': ' . $order_lokale; ?> </td>
+									<td><?php echo date('j-m-Y', strtotime($order_send_date)); ?></td>
+									<td><?php shortenText($order_address); ?></td>
+									<td> <?php shortenText($order_meeting); ?> </td>
 									<td> <?php echo $order_start_time; ?> </td>
 									<td> <?php echo $order_stop_time; ?> </td>
 									<td> <?php echo $order_shifts; ?> </td>
-									<td> <?php echo $order_fag; ?> </td>
-									<td style="min-width: 5.5rem;"> <?php echo $order_fakultet; ?> </td>
-									<td style="min-width: 19.5rem;"> <?php echo $order_kontakt; ?> </td>
+									<td> <?php shortenText($order_fag); ?> </td>
+									<td> <?php echo $order_fakultet; ?> </td>
+									<td> <?php shortenText($order_kontakt); ?> </td>
 									<td> <?php echo $order_form; ?> </td>
 								</tr>
 								<?php } ;?>

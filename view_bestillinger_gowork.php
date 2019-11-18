@@ -137,7 +137,7 @@
 												$statement->execute();
 												$row = $statement->fetch(PDO::FETCH_ASSOC);
 												$school_name = $row['account_school'];
-												echo $school_name;
+												shortenText($school_name);
 											?>
 										</td>
 										<td style="min-width: 6.5rem;"><?php echo date('j-m-Y', strtotime($order_send_date)); ?></td>

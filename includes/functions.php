@@ -5,6 +5,7 @@
 
   function sendMail($order_school,$order_mail_dates=array(), $order_uge_nummer=array(), $order_shifts=array()){
   	$mail=new PHPMailer;
+    $mail->CharSet = "UTF-8";
     $mail->SMTPDebug = 0;                               
     //Set PHPMailer to use SMTP.
     $mail->isSMTP();            
@@ -36,6 +37,42 @@
     {
         echo "Mailer Error: " . $mail->ErrorInfo;
         exit();
+    }
+  }
+  function sendMailClient($account_mail, $order_mail_dates=array(), $order_uge_nummer=array(), $order_shifts=array()){
+    $mail=new PHPMailer;
+    $mail->CharSet = "UTF-8";
+    $mail->SMTPDebug = 0;                               
+    //Set PHPMailer to use SMTP.
+    $mail->isSMTP();            
+    //Set SMTP host name                          
+    $mail->Host = "smtp.gmail.com";
+    $mail->SMTPAuth = true;                           
+    $mail->Username = "julian.costinea@gmail.com";                 
+    $mail->Password = "epqwzohchbmspgld";                           
+    //If SMTP requires TLS encryption then set it
+    $mail->SMTPSecure = "TLS";                           
+    //Set TCP port to connect to 
+    $mail->Port = 587;          
+    $mail->From="julian.costinea@gmail.com";
+    $mail->FromName="GO:WORK Order System";
+    $mail->addAddress($account_mail);
+    $mail->isHTML(true);
+    $mail->Subject = "GO:WORK Ordrebekræftelse";
+    $mail->Body = "Vi bekræfter hermed at vi har modtaget din ordre. <br> <br>";
+
+    for ($i=0; $i < count($order_mail_dates); $i++) { 
+      $mail->Body.="Dato: $order_mail_dates[$i] <br>";
+      $mail->Body.="Ugenummer: $order_uge_nummer[$i] <br>";
+      $mail->Body.="Tilsyn: $order_shifts[$i] <br><br>";
+    }
+
+    $mail->Body.="Mvh GO:WORK Studenterhjælp.";
+
+    if(!$mail->send()) 
+    {
+        echo "Mailer Error: " . $mail->ErrorInfo;
+        die("<script> alert('Could not send error') </script>");
     }
   }
 

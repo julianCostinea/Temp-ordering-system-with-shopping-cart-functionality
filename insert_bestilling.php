@@ -4,8 +4,9 @@
   if (!isset($_SESSION['client_email'])) {
     echo "<script>window.open('login.php','_self')</script>";
   }
-
-
+ ?>
+ <?php 
+require_once 'includes/functions.php';
  ?>
 
 
@@ -39,7 +40,7 @@
 				<div class="card-header">
 					<div class="float-left">
 						<h3 class="card-title">
-						<i class="fa fa-money fa-fw"></i> <span style="text-decoration: underline;">GO:WORK Send Bestilling </span>
+						<i class="fa fa-money fa-fw"></i> <span style="text-decoration: underline;">GO:WORK Send Bestilling</span>
 						</h3>
 					</div>
 				</div>
@@ -236,6 +237,11 @@
 		$order_form=$_POST['order_form'];
 		$order_uge_nummer= date("W", strtotime($order_date));
 
+		// Send client mail
+		$order_mail_dates[]= $order_unformatted_date;
+        $order_mail_uge_nummer[]= $order_uge_nummer;
+        $order_mail_shifts[]= $order_shifts;
+
 		$stmt = $con->prepare('SELECT account_school FROM accounts WHERE account_code = :account_code');
 	 	$stmt->bindParam(':account_code', $account_code);
 		$stmt->execute();
@@ -287,40 +293,9 @@
 		$count=$stmt->rowCount();
 
 	if ($count>0) {
- 		echo "<script>alert('Order has been sent')</script>";
- 		$mail=new PHPMailer;
-		$mail->SMTPDebug = 0;                               
-		//Set PHPMailer to use SMTP.
-		$mail->isSMTP();            
-		//Set SMTP host name                          
-		$mail->Host = "smtp.gmail.com";
-		$mail->SMTPAuth = true;    
-		$mail->Port = 587;
-		$mail->Username = "julian.costinea@gmail.com";                 
-		$mail->Password = "epqwzohchbmspgld";                           
-		//If SMTP requires TLS encryption then set it
-		$mail->SMTPSecure = "TLS";                           
-		//Set TCP port to connect to 
-		$mail->From="julian.costinea@gmail.com";
-		$mail->FromName="GO:WORK Order System";
-		$mail->addAddress("job@go-work.dk");
-		$mail->isHTML(true);
-		$mail->Subject = "A new order has been sent from $school_name.";
-		$mail->Body = "$school_name has sent a new order <br>";
-		$mail->Body.="Dato: $order_unformatted_date <br>";
-		$mail->Body.="Ugenummer: $order_uge_nummer <br>";
-		$mail->Body.="Amount of people needed: $order_shifts";
-		$mail->Body.="<a href='https://jcedevelopment.000webhostapp.com/view_bestillinger_gowork.php'><h4>Check it out<h4></a>";
-
-		if(!$mail->send()) 
-		{
-		    echo "Mailer Error: " . $mail->ErrorInfo;
-		    exit();
-		} 
-		else 
-		{
-		    echo "Message has been sent successfully";
-		}
+ 		sendMailClient($account_email, $order_mail_dates, $order_mail_uge_nummer, $order_mail_shifts);
+        sendMail($school_name,$order_mail_dates, $order_mail_uge_nummer, $order_mail_shifts);
+        echo "<script>alert('Bestilling Sendt Til Booking.')</script>";
  		echo "<script>window.open('view_aktive_bestillinger.php','_self')</script>";
  	}
  	else{

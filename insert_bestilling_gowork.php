@@ -9,13 +9,17 @@
 	if (isset($_POST['insert_client'])) {
 		$_SESSION['account_code']=$_POST['insert_client'];
 		$account_code=$_POST['insert_client'];
+	}elseif (isset($_GET['insert_client'])) {
+		$_SESSION['account_code']=$_GET['insert_client'];
+		$account_code=$_GET['insert_client'];
+	}
 		$sth = $con->prepare('SELECT account_school FROM accounts WHERE account_code= :account_code');
 		$sth->bindParam(':account_code', $account_code);
 		$sth->execute();
 		$row = $sth->fetch(PDO::FETCH_ASSOC);
 		$school_name=$row['account_school'];
 		$_SESSION['school_name']=$row['account_school'];
-	}
+		$_SESSION['account_email']=$row['account_email'];
  ?>
 <!DOCTYPE html>
 <html>
@@ -182,7 +186,7 @@
 						  	<div class="form-group row">
 							    <label for="order_dokument" class="col-md-2 col-form-label">Relevante dokumenter (Hvis relevant)</label>
 							    <div class="col-md-7 col-lg-3">
-							      <input type="file" class="form-control-file" name="order_dokument">
+							      <input type="file" class="form-control-file" name="order_dokument" accept="application/pdf">
 							    </div>
 						  </div>		
 					<div class="form-group row">

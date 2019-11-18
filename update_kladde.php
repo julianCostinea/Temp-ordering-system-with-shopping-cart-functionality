@@ -6,7 +6,7 @@
   }
 ?>
 <?php 
-  require_once 'includes/functions.php'
+  require_once 'includes/functions.php';
  ?>
 <?php
       if (isset($_POST['delete_kladde'])) {
@@ -62,6 +62,7 @@
           $order_form = $row['order_form'];
           $order_school = $row['order_school'];
           $school_code = $row['school_code'];
+          $account_email= $_SESSION['client_email'];
 
           $order_mail_dates[]= $order_mail_date;
           $order_mail_uge_nummer[]= $order_uge_nummer;
@@ -107,6 +108,7 @@
         $countDelete=$statement->rowCount();
       }
       if ($countDelete>0) {
+        sendMailClient($account_email, $order_mail_dates, $order_mail_uge_nummer, $order_mail_shifts);
         sendMail($order_school,$order_mail_dates, $order_mail_uge_nummer, $order_mail_shifts);
         echo "<script>alert('Bestilling Sendt Til Booking.')</script>";
         echo "<script>window.open('view_aktive_bestillinger.php','_self')</script>";
