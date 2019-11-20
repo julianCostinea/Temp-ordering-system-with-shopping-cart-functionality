@@ -5,9 +5,7 @@
     echo "<script>window.open('admin_login.php','_self')</script>";
     exit();
   }
-  $sql="DELETE FROM completed_orders WHERE order_date < CURDATE()";
-  $statement = $con->prepare($sql);
-  $statement->execute();
+  include_once 'includes/functions.php';
 ?>
 
 <!DOCTYPE html>

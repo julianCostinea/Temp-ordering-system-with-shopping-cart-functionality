@@ -21,16 +21,27 @@ nav a{
 	font-weight: bold;
 	margin-bottom: -0.8rem!important;
 }
-ul li a{
+li {
+  position: relative;
+  display: inline-block;
   cursor: pointer;
-  transition: color .2s ease-in-out;
 }
-
-li a:hover {
-  color: blue!important;
+li:after {
+  content: "";
+  position: absolute;
+  left:0;
+  top: 100%;
+  width: 0;
+  height: 2px;
+  background-color: black;
+  transition: width .4s ease-in-out;
 }
-li a.active{
-	color: blue!important;
+li:hover:after {
+  width: 100%;
+}
+li.active:after{
+	width: 100%;
+	background-color: blue;
 }
 .container-fluid{
     margin:0!important;

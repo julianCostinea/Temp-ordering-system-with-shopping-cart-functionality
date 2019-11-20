@@ -1,12 +1,12 @@
 @media only screen and (min-width: 600px){
-	body{
-	padding-top: 10%;
+	.container{
+	padding-top: 10%!important;
 }
 }
 .form-login{
 	max-width: 30rem;
 	padding: 1.5rem;
-	border-radius: 2rem;
+	border-radius: 1rem;
 	background-color: #e9e9e9;
 	margin: 0 auto;
 }

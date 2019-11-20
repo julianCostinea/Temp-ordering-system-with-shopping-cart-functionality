@@ -14,17 +14,27 @@
 	<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+	<?php include_once 'header_login.php' ?>
 	<div class="container">
 		<form class="form-login text-center" action="" method="post">
-			<h4 class="form-login-header">Login</h4>
-			<input type="text" name="client_email" placeholder="Email" class="form-control email" 
-			required>
-			<input type="password" name="client_pass" id="client_pass" placeholder="Password" class="form-control" required><br>
-			<button class="btn btn-lg btn-primary" type="submit" name="client_login"> Log in 
+			<h4 class="form-login-header">Velkommen til GO:WORKs Bestilling System</h4>
+			<div class="form-group row">
+			    <label for="client_email" class="col-md-3 col-form-label">Username</label>
+			    <div class="col-md-9">
+			      <input type="text" required class="form-control" id="client_email" name="client_email">
+			    </div>
+			</div>
+			<div class="form-group row">
+			    <label for="client_pass" class="col-md-3 col-form-label">Password</label>
+			    <div class="col-md-9">
+			      <input type="password" required class="form-control" id="client_pass" name="client_pass">
+			    </div>
+			</div>
+			<button class="btn btn-md btn-primary" type="submit" name="client_login"> Log in 
 			</button>
 		</form>
 	</div>
-
+	<?php include_once 'footer.php'; ?>	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery-ui.min.js"></script>

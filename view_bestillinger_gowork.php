@@ -4,6 +4,54 @@
 	if (!isset($_SESSION['admin_email'])) {
     echo "<script>window.open('admin_login.php','_self')</script>";
   }
+
+  $sql="SELECT * FROM orders WHERE order_date < CURDATE()";
+  $statement = $con->prepare($sql);
+  $statement->execute();
+
+  while ($row = $statement->fetch(PDO::FETCH_ASSOC)){
+  	$order_id=$row['order_id'];
+  	$order_date=$row['order_date'];
+  	$order_uge_nummer = $row['order_uge_nummer'];
+    $order_send_date = $row['order_send_date'];
+    $order_address = htmlspecialchars($row['order_address']);
+	$order_meeting = htmlspecialchars($row['order_meeting']);
+	$order_lokale = htmlspecialchars($row['order_lokale']);
+	$order_start_time = $row['order_start_time'];
+    $order_stop_time = $row['order_stop_time'];
+	$order_shifts = $row['order_shifts'];
+	$order_fag = htmlspecialchars($row['order_fag']);
+	$order_fakultet = htmlspecialchars($row['order_fakultet']);
+	$order_kontakt = htmlspecialchars($row['order_kontakt']);
+	$order_form = $row['order_form'];
+	$order_school = $row['order_school'];
+	$school_code = $row['school_code'];
+
+	$stmt=$con->prepare('INSERT INTO completed_orders (order_id, order_date, order_uge_nummer, order_send_date, order_address, order_meeting, order_lokale, order_start_time, order_stop_time, order_shifts, order_fag, order_fakultet, order_kontakt, order_form, order_school, school_code) VALUES (:order_id, :order_date, :order_uge_nummer, :order_send_date,  :order_address, :order_meeting, :order_lokale, :order_start_time, :order_stop_time, :order_shifts, :order_fag, :order_fakultet, :order_kontakt, :order_form, :order_school, :school_code)');
+          $stmt->execute([
+          'order_id'=>$order_id,
+          'order_date'=>$order_date,
+          'order_address'=>$order_address,
+          'order_meeting'=>$order_meeting,
+          'order_uge_nummer'=>$order_uge_nummer,
+          'order_lokale'=>$order_lokale,
+          'order_send_date'=>$order_send_date,
+          'order_start_time'=>$order_start_time,
+          'order_stop_time'=>$order_stop_time,
+          'order_shifts'=>$order_shifts,
+          'order_fag'=>$order_fag,
+          'order_fakultet'=>$order_fakultet,
+          'order_kontakt'=>$order_kontakt,
+          'order_form'=>$order_form,
+          'order_school'=>$order_school,
+          'school_code'=>$school_code
+        ]);
+  }
+
+  $sql="DELETE FROM orders WHERE order_date < CURDATE()";
+  $statement = $con->prepare($sql);
+  $statement->execute();
+
   include_once 'includes/functions.php';	
 ?>
 <!DOCTYPE html>

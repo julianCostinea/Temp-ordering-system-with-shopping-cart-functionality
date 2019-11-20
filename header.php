@@ -12,23 +12,23 @@ $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https"
   }
   function addConfirmation ($check_link){
     if (preg_match('/insert_bestilling/i',$check_link)) {
-      echo 'confirmation';
+      echo 'confirmation ';
     }
   }
  ?>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item <?php addActiveClass('/insert_bestilling/i', $actual_link); ?>">
-        <a class="nav-link <?php addConfirmation($actual_link); ?>" href="insert_bestilling.php" >Opret ny ordre</a>
+      <li class="nav-item">
+        <a class="nav-link <?php addConfirmation($actual_link); addActiveClass('/insert_bestilling/i', $actual_link);?>" href="insert_bestilling.php" >Opret ny ordre</a>
       </li>
-      <li class="nav-item <?php addActiveClass('/view_aktive_bestillinger/i', $actual_link); ?>">
-        <a class="nav-link <?php addConfirmation($actual_link); ?>" href="view_aktive_bestillinger.php" >Se aktive ordrer</a>
+      <li class="nav-item">
+        <a class="nav-link <?php addConfirmation($actual_link); addActiveClass('/view_aktive_bestillinger/i', $actual_link);?>" href="view_aktive_bestillinger.php" >Se aktive ordrer</a>
       </li>
-      <li class="nav-item <?php addActiveClass('/view_kladder/i', $actual_link); ?>">
-        <a class="nav-link <?php addConfirmation($actual_link); ?>" href="view_kladder.php">Gemte Kladder</a>
+      <li class="nav-item">
+        <a class="nav-link <?php addConfirmation($actual_link); addActiveClass('/view_kladder/i', $actual_link);?>" href="view_kladder.php">Gemte Kladder</a>
       </li>
-      <li class="nav-item <?php addActiveClass('/view_completed_bestillinger/i', $actual_link); ?>">
-        <a class="nav-link <?php addConfirmation($actual_link); ?>" href="view_completed_bestillinger.php">Gennemførte vagter</a>
+      <li class="nav-item">
+        <a class="nav-link <?php addConfirmation($actual_link); addActiveClass('/view_completed_bestillinger/i', $actual_link); ?>" href="view_completed_bestillinger.php">Gennemførte vagter</a>
       </li>
     </ul>
     <a class="nav-link logout <?php addConfirmation($actual_link); ?>" href="logout.php"><i class="fas fa-sign-out-alt"></i>Log ud</a>

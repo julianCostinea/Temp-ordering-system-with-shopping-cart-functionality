@@ -14,6 +14,7 @@
 	<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+	<?php include_once 'header_login.php' ?>
 	<div class="container">
 		<form class="form-login text-center" action="" method="post">
 			<h4 class="form-login-header">Admin Login</h4>
@@ -24,7 +25,7 @@
 			</button>
 		</form>
 	</div>
-
+	<?php include_once 'footer.php'; ?>	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
