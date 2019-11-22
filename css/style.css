@@ -49,6 +49,11 @@ li a.active{
 	font-family: Verdana, Geneva, sans-serif;
 	background: #305496;
 }
+.card-header .float-left a{
+	padding:0 0.3rem;
+	text-decoration: none;
+	color: black;
+}
 .card-body{
 	padding: 0!important;
 	height: auto !important;
