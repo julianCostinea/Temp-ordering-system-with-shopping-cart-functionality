@@ -18,11 +18,11 @@ $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https"
  ?>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item <?php addActiveClass('/view_bestillinger_gowork/i', $actual_link); ?>">
-        <a class="nav-link <?php addConfirmation($actual_link); ?>" href="view_bestillinger_gowork.php" >Se aktive ordrer</a>
+      <li class="nav-item">
+        <a class="nav-link <?php addConfirmation($actual_link); addActiveClass('/view_bestillinger_gowork/i', $actual_link); ?>" href="view_bestillinger_gowork.php" >Se aktive ordrer</a>
       </li>
-      <li class="nav-item <?php addActiveClass('/view_completed_bestillinger_gowork/i', $actual_link); ?>">
-        <a class="nav-link <?php addConfirmation($actual_link); ?>" href="view_completed_bestillinger_gowork.php">Gennemførte vagter</a>
+      <li class="nav-item">
+        <a class="nav-link <?php addConfirmation($actual_link); addActiveClass('/view_completed_bestillinger_gowork/i', $actual_link) ?>" href="view_completed_bestillinger_gowork.php">Gennemførte vagter</a>
       </li>
     </ul>
     <a class="nav-link logout <?php addConfirmation($actual_link); ?>" href="admin_logout.php"><i class="fas fa-sign-out-alt"></i>Log ud</a>

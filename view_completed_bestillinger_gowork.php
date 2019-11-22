@@ -168,6 +168,6 @@
 			</div><!-- panel panel-default Ends -->
 	</div><!-- container fluid ends -->
 <?php include_once 'footer.php'; ?>
-	<?php include_once 'includes/scripts.php' ?>
+	<?php include_once 'includes/scripts_gowork.php' ?>
 </body>
 </html>

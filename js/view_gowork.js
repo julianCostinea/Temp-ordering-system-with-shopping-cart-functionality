@@ -17,10 +17,15 @@ $(document).ready(function(){
   $("#all_orders").click(function(){
   if ($( "#all_orders" ).prop( "checked" )){
   	$(".selected_orders").prop('checked', true);
+    $('td').addClass('bold');
   }
   else{
   	$(".selected_orders").prop('checked', false);
+    $('td').removeClass('bold');
   }
+});
+   $(".selected_orders").click(function(){
+    $(this).parent().siblings().toggleClass('bold');
 });
 
   var search_field=$(location).attr('href');

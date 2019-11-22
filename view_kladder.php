@@ -7,11 +7,12 @@
  ?>
 <?php 
  	$account_email=$_SESSION['client_email'];
- 	$stmt = $con->prepare('SELECT account_code FROM accounts WHERE account_email = :account_email');
-	 	$stmt->bindParam(':account_email', $account_email);
-		$stmt->execute();
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		$account_code = $row['account_code'];	
+ 	$stmt = $con->prepare('SELECT account_code, account_fakultet FROM accounts WHERE account_email = :account_email');
+ 	$stmt->bindParam(':account_email', $account_email);
+	$stmt->execute();
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$account_code = $row['account_code'];
+	$account_fakultet = $row['account_fakultet'];	
 	include_once 'includes/functions.php';								
   ?>
 
@@ -33,6 +34,17 @@
 						<h3 class="card-title">
 						<i class="fas fa-address-card"></i> Kladder 
 						</h3>
+						<?php 
+						if(!empty($account_fakultet)){
+							if (!isset($_GET['filter'])) {
+							?>
+							<a href="view_kladder.php?filter=all" type="button">Vis alle kladder</a>
+							<?php } else{ 
+								$original_fakultet=$account_fakultet;
+								$account_fakultet=$_GET['filter'];
+								?>
+							<a href="view_kladder.php" type="button">Vis kun FAK: <?php echo $original_fakultet; ?> </a>
+						<?php } } ?>
 					</div>
 					<div class="text-center float-right  mt-1">
 						<form method="get" class="mt-2 search_form">
@@ -85,8 +97,19 @@
 
 									}
 								else{	
-									$stmt = $con->prepare('SELECT * FROM klader WHERE school_code = :school_code ORDER BY order_date');
-							      	$stmt->bindParam(':school_code', $account_code);
+									$sql='SELECT * FROM klader WHERE school_code = ?';
+										if(!empty($account_fakultet)){
+											if ($account_fakultet!='all') {
+												$sql.='AND order_fakultet=?';
+												$filterfakultet=true;
+											}
+										}
+										$sql.='ORDER BY order_date';
+										$stmt = $con->prepare($sql);
+									  	$stmt->bindParam(1, $account_code);
+									  	if (isset($filterfakultet)) {
+									  		$stmt->bindParam(2, $account_fakultet);
+									  	}
 							      }
 
 								$stmt->execute();

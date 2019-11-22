@@ -85,15 +85,15 @@
 						</h3>
 						<?php 
 						if(!empty($account_fakultet)){
-						if (!isset($_GET['nofilter'])) {
-						?>
-						<a href="view_aktive_bestillinger.php?nofilter=all" type="button">Vis alle ordrer</a>
-						<?php } else{ 
-							$original_fakultet=$account_fakultet;
-							$account_fakultet=$_GET['nofilter'];
+							if (!isset($_GET['filter'])) {
 							?>
-						<a href="view_aktive_bestillinger.php" type="button">Vis kun FAK: <?php echo $original_fakultet; ?> </a>
-						<?php }} ?>
+							<a href="view_aktive_bestillinger.php?filter=all" type="button">Vis alle ordrer</a>
+							<?php } else{ 
+								$original_fakultet=$account_fakultet;
+								$account_fakultet=$_GET['filter'];
+								?>
+							<a href="view_aktive_bestillinger.php" type="button">Vis kun FAK: <?php echo $original_fakultet; ?> </a>
+						<?php } } ?>
 					</div>
 					<div class="text-center float-right  mt-1">
 						<form method="get" action="view_aktive_bestillinger.php" class="mt-2 search_form">
@@ -144,19 +144,19 @@
 										$stmt->bindParam(':school_code', $account_code);
 									}
 									else{		
-									$sql='SELECT * FROM orders WHERE school_code = ?';
-									if(!empty($account_fakultet)){
-										if ($account_fakultet!='all') {
-											$sql.='AND order_fakultet=?';
-											$filterfakultet=true;
+										$sql='SELECT * FROM orders WHERE school_code = ?';
+										if(!empty($account_fakultet)){
+											if ($account_fakultet!='all') {
+												$sql.='AND order_fakultet=?';
+												$filterfakultet=true;
+											}
 										}
-									}
-									$sql.='ORDER BY order_date';
-									$stmt = $con->prepare($sql);
-								  	$stmt->bindParam(1, $account_code);
-								  	if (isset($filterfakultet)) {
-								  		$stmt->bindParam(2, $account_fakultet);
-								  	}
+										$sql.='ORDER BY order_date';
+										$stmt = $con->prepare($sql);
+									  	$stmt->bindParam(1, $account_code);
+									  	if (isset($filterfakultet)) {
+									  		$stmt->bindParam(2, $account_fakultet);
+									  	}
 									}
 
 									$stmt->execute();

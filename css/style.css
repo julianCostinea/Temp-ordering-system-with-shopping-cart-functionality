@@ -64,6 +64,9 @@ li a.active{
 .table{
     min-width:100%;
 }
+.bold{
+	font-weight: bold;
+}
 
 /**FORM Styles **/
 form .form-group{
