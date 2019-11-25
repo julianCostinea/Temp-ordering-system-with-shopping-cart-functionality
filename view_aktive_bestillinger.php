@@ -112,7 +112,8 @@
 							<thead>
 								<tr>
 									<th>ID:</th>
-									<th> Uge:</th>
+									<th>Sendt den</th>
+									<th>Uge:</th>
 									<th>Dato:</th>
 									<th>Adresse:</th>
 									<th>Mødested:</th>
@@ -165,7 +166,15 @@
 									$sql_date = $row['order_date'];
 									$created_date=date_create($sql_date);
 									$order_date=date_format($created_date, 'd-m-Y');
+
 									$order_uge_nummer = $row['order_uge_nummer'];
+
+									$cph_time = new DateTimeZone('Europe/Copenhagen');
+									$sql_send_date = $row['order_send_date'];
+									$sql_created_date=date_create($sql_send_date);
+									$sql_created_date->setTimezone($cph_time);
+									$order_send_date=date_format($sql_created_date, 'd-m-Y H:i');
+
 									$order_address = htmlspecialchars($row['order_address']);
 									$order_meeting = htmlspecialchars($row['order_meeting']);
 									$order_lokale = htmlspecialchars($row['order_lokale']);
@@ -182,6 +191,7 @@
 									?>
 									<tr>
 										<td><?php echo $order_id;?></td>
+										<td><?php shortenText($order_send_date); ?></td>
 										<td> <?php echo $order_uge_nummer;  ?> </td>
 										<td> <?php echo $order_date; ?>  </td>
 										<td><?php shortenText($order_address); ?></td>

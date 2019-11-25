@@ -403,7 +403,7 @@
 		$mail->Host = "smtp.gmail.com";
 		$mail->SMTPAuth = true;                           
 		$mail->Username = "julian.costinea@gmail.com";                 
-		$mail->Password = "kingstone";                           
+		$mail->Password = "epqwzohchbmspgld";                           
 		//If SMTP requires TLS encryption then set it
 		$mail->SMTPSecure = "TLS";                           
 		//Set TCP port to connect to 
