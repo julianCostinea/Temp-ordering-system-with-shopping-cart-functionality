@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "gowork66106500";
+$password = "password";
 $db="test";
 
 try {
